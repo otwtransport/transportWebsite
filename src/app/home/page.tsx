@@ -1,6 +1,4 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 import GoogleSheetCard from "@/components/GoogleSheetCard";
 import Link from "next/link"; // For routing to contact us
 

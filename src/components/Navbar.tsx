@@ -1,19 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image"; // Import Image component from Next.js
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50); // Trigger dynamic island after 50px scroll
-    };
+    // Ensure the code runs only on the client side
+    if (typeof window !== "undefined") {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 50); // Trigger dynamic island after 50px scroll
+      };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, []);
 
   const navItems = [
@@ -22,7 +27,13 @@ const Navbar = () => {
     { name: "Contact Us", href: "/contact-us" },
   ];
 
-  const isCurrentPath = (href : any) => window.location.pathname === href;
+  // Ensure window.location is only accessed client-side
+  const isCurrentPath = (href: string) => {
+    if (typeof window !== "undefined") {
+      return window.location.pathname === href;
+    }
+    return false; // Default to false if accessed server-side
+  };
 
   return (
     <nav
@@ -39,11 +50,16 @@ const Navbar = () => {
       >
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Logo" className="h-8 w-8 object-contain" />
+          {/* Use Image component for logo */}
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={32}  // You can adjust the width and height
+            height={32} // Set height to maintain aspect ratio
+            className="object-contain"
+          />
           <span
-            className={`font-bold ${
-              isScrolled ? "text-white" : "text-black"
-            }`}
+            className={`font-bold ${isScrolled ? "text-white" : "text-black"}`}
           >
             On The Way Transport
           </span>

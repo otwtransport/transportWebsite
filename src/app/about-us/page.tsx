@@ -2,7 +2,6 @@
 import React from "react";
 import Image from "next/image";
 import FormfacadeEmbed from "@formfacade/embed-react";
-import GoogleSheetCard from "../../components/GoogleSheetCard"; // Adjust the import path based on your folder structure
 
 const AboutUs = () => {
   return (
